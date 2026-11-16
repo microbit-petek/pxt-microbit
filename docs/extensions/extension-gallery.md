@@ -192,6 +192,10 @@ Many extensions are available to work with interface kits, add-on hardware, or o
 
 ```codecard
 [{
+  "name": "SEN66 Air Quality Sensor",
+  "url":"/pkg/bsiever/pxt-sen66",
+  "cardType": "package"
+}, {
   "name": "KY-040 Rotary Encoder Plus",
   "url":"/pkg/steveturbek/pxt-rotary-encoder-KY-040-plus",
   "cardType": "package"
@@ -396,6 +400,10 @@ Many extensions are available to work with interface kits, add-on hardware, or o
 
 ```codecard
 [{
+   "name": "Forward FIFA Kit",
+   "url": "/pkg/Forward-Education/pxt-fwd-fifa",
+   "cardType": "package"
+}, {
    "name": "FWD Edu OpenSciEd Kit",
    "url": "/pkg/Forward-Education/pxt-openscied",
    "cardType": "package"
@@ -506,6 +514,14 @@ Many extensions are available to work with interface kits, add-on hardware, or o
 
 ```codecard
 [{
+  "name": "SARDU Matrix",
+  "url":"/pkg/DavideCosta-SARDU/pxt-sardu-matrix",
+  "cardType": "package"
+}, {
+  "name": "NeoPixel Extended",
+  "url":"/pkg/PasAlt/pxt-neopixel-matrix-extension",
+  "cardType": "package"
+}, {
   "name": "ZHAW Luma Matrix",
   "url":"/pkg/InES-HPMM/pxt-luma-matrix",
   "cardType": "package"
@@ -548,6 +564,18 @@ Many extensions are available to work with interface kits, add-on hardware, or o
 
 ```codecard
 [{
+  "name": "FWD Vision AI Kit",
+  "url":"/pkg/Forward-Education/pxt-ai-vision",
+  "cardType": "package"
+}, {
+  "name": "FWD Voice AI Kit",
+  "url":"/pkg/Forward-Education/pxt-ai-voice",
+  "cardType": "package"
+}, {
+  "name": "enorasisCore",
+  "url":"/pkg/skinformatics/enorasisCore-makecode",
+  "cardType": "package"
+}, {
   "name": "Kocoafab COCOCAM",
   "url":"/pkg/ekkai/aicococam",
   "cardType": "package"
@@ -581,6 +609,22 @@ Many extensions are available to work with interface kits, add-on hardware, or o
 
 ```codecard
 [{
+  "name": "Peanut King micro:bit Shield V2",
+  "url":"/pkg/peanut-king-solution/pxt-pks-shield-v2",
+  "cardType": "package"
+}, {
+  "name": "Peanut King Controller",
+  "url":"/pkg/peanut-king-solution/pxt-pks-controller",
+  "cardType": "package"
+}, {
+  "name": "RobotGyms Robot PU Pro",
+  "url":"/pkg/robotgyms/pxt-robotpu",
+  "cardType": "package"
+}, {
+  "name": "Elecfreaks PU Robot",
+  "url":"/pkg/elecfreaks/pxt-PU-Robot",
+  "cardType": "package"
+}, {
   "name": "Kitronik Design & Automate Accessory Kit",
   "url":"/pkg/KitronikLtd/pxt-design-and-automate-accessory-kit",
   "cardType": "package"
@@ -943,6 +987,10 @@ Many extensions are available to work with interface kits, add-on hardware, or o
 
 ```codecard
 [{
+    "name": "FWD Edu UBit",
+    "url": "/pkg/Forward-Education/pxt-fwd-ubit",
+    "cardType": "package"
+}, {
     "name": "Ceibal Ubit",
     "url": "/pkg/Forward-Education/pxt-ceibal-ubit",
     "cardType": "package"

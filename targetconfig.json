@@ -443,8 +443,20 @@
             "pyocodingcompany-crypto/pyobot-makecode": { "tags": [ "Robotics" ] },
             "kitronikltd/pxt-design-and-automate-accessory-kit": { "tags": [ "Robotics" ] },
             "aorczyk/my-controller": { "tags": [ "Software" ] },
+            "forward-education/pxt-fwd-ubit": {},
             "forward-education/pxt-openscied": { "tags": [ "Science" ] },
             "forward-education/pxt-ceibal-ubit": {},
+            "bsiever/pxt-sen66": { "tags": [ "Science" ] },
+            "skinformatics/enorasiscore-makecode": { "tags": [ "Science" ] },
+            "robotgyms/pxt-robotpu": { "tags": [ "Robotics" ] },
+            "pasalt/pxt-neopixel-matrix-extension": { "tags": [ "Lights and Display" ] },
+            "peanut-king-solution/pxt-pks-shield-v2": { "tags": [ "Robotics" ] },
+            "peanut-king-solution/pxt-pks-controller": { "tags": [ "Robotics" ] },
+            "forward-education/pxt-ai-vision": { "tags": [ "Science" ] },
+            "forward-education/pxt-ai-voice": { "tags": [ "Science" ] },
+            "elecfreaks/pxt-pu-robot": { "tags": [ "Robotics" ] },
+            "forward-education/pxt-fwd-fifa": { "tags": [ "Robotics" ] },
+            "davidecosta-sardu/pxt-sardu-matrix": { "tags": [ "Lights and Display" ] },
             "microsoft/pxt-simx-sample": {
                 "simx": {
                     "sha": "7301f5900879b85127482d79bab48f03c25690a8",
@@ -453,7 +465,7 @@
             },
             "microbit-foundation/pxt-microbit-ml": {
                 "simx": {
-                    "sha": "6aa7c4dca86f537ad5ece769684886e97626659e",
+                    "sha": "08b9e007964a25bb7dfe3f00d7fc2450102f1bfc",
                     "devUrl": "http://localhost:5173",
                     "aspectRatio": 3.45
                 },
@@ -461,7 +473,7 @@
             },
             "jacdac/pxt-jacdac": {
                 "simx": {
-                    "sha": "1804c0b3d2976935c476f3b6d425b554a20fa814",
+                    "sha": "2c550e0e80734c57eec5e37808d4103df3b3bd43",
                     "devUrl": "https://jacdac.github.io/jacdac-docs/tools/makecode-sim/"
                 }
             },
@@ -546,6 +558,6 @@
         ]
     },
     "electronManifest": {
-        "latest": "v8.0.19"
+        "latest": "v9.0.8"
     }
 }
