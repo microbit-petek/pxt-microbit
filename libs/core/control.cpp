@@ -389,7 +389,11 @@ namespace control {
     //% help=control/device-long-serial-number
     //% advanced=true
     Buffer deviceLongSerialNumber() {
+#ifdef NRF54L_SERIES
+        return mkBuffer((uint8_t*)&NRF_FICR->INFO.DEVICEID[0], sizeof(uint64_t));
+#else
         return mkBuffer((uint8_t*)&NRF_FICR->DEVICEID[0], sizeof(uint64_t));
+#endif
     }
 
     /**
