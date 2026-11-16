@@ -210,6 +210,28 @@
                 "dockerImage": "pext/yotta:latest",
                 "yottaConfigCompatibility": true
             }
+        },
+        "mbcodal3": {
+            "compile": {
+                "flashCodeAlign": 4096,
+                "flashUsableEnd": 1544192,
+                "flashEnd": 1560576
+            },
+            "compileService": {
+                "buildEngine": "codal",
+                "codalTarget": {
+                    "name": "codal-microbit-v3",
+                    "url": "https://github.com/microbit-foundation/codal-microbit-v3",
+                    "branch": "makecode-integration",
+                    "type": "git"
+                },
+                "codalBinary": "MICROBIT",
+                "githubCorePackage": "microbit-foundation/microbit-v3-samples",
+                "gittag": "makecode-integration",
+                "serviceId": "mbcodal3",
+                "dockerImage": "pext/yotta:latest",
+                "yottaConfigCompatibility": true
+            }
         }
     },
     "runtime": {
