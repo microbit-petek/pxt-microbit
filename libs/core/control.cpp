@@ -351,6 +351,10 @@ namespace control {
      */
     //% help=control/hardware-version
     String _hardwareVersion() {
+        // TODO
+        #ifdef NRF54L_SERIES
+            return mkString("3.0");
+        #else
         #if MICROBIT_CODAL
             MicroBitVersion v = uBit.power.getVersion();
             int versionIdx;
@@ -371,6 +375,7 @@ namespace control {
         #else
             return mkString("1.X", 1);
         #endif
+        #endif // #if NRF54L_SERIES
     }
 
     /**

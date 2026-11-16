@@ -6,6 +6,8 @@ namespace music {
      **/
     //% async
     void __playSoundExpression(String nodes, bool waitTillDone) {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
         if (waitTillDone)
             uBit.audio.soundExpressions.play(MSTR(nodes));
@@ -14,6 +16,7 @@ namespace music {
 #else
         target_panic(PANIC_VARIANT_NOT_SUPPORTED);
 #endif
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -21,8 +24,11 @@ namespace music {
     */
     //% 
     void __stopSoundExpressions() {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
         uBit.audio.soundExpressions.stop();
 #endif
+      #endif // NRF54L_SERIES
     }
 }

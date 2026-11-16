@@ -166,8 +166,11 @@ int current_time_ms() {
 }
 
 static void logwriten(const char *msg, int l) {
+    // TODO
+    #ifndef NRF54L_SERIES
     if (!serialLoggingDisabled)
         uBit.serial.send((uint8_t *)msg, l);
+    #endif
 }
 
 static void logwrite(const char *msg) {

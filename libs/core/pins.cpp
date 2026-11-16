@@ -428,6 +428,8 @@ namespace pins {
     //% weight=14
     //% blockGap=8
     void analogPitch(int frequency, int ms) {
+      // TODO
+      #ifndef NRF54L_SERIES
         // init pins if needed
         if (NULL == pitchPin) {
 #if MICROBIT_CODAL
@@ -464,6 +466,7 @@ namespace pins {
             // fiber_sleep(5);
         }
 #endif
+      #endif // NRF54L_SERIES
     }
 
 
@@ -552,7 +555,10 @@ namespace pins {
     Buffer i2cReadBuffer(int address, int size, bool repeat = false)
     {
       Buffer buf = createBuffer(size);
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.i2c.read(address << 1, (BUFFER_TYPE)buf->data, size, repeat);
+      #endif // NRF54L_SERIES
       return buf;
     }
 
@@ -562,15 +568,23 @@ namespace pins {
     //%
     int i2cWriteBuffer(int address, Buffer buf, bool repeat = false)
     {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return MICROBIT_I2C_ERROR;
+      #else
       return uBit.i2c.write(address << 1, (BUFFER_TYPE)buf->data, buf->length, repeat);
+      #endif // NRF54L_SERIES
     }
 
+      // TODO
+      #ifndef NRF54L_SERIES
     SPI* spi = NULL;
     SPI* allocSPI() {
         if (NULL == spi)
             spi = new SPI(MOSI, MISO, SCK);
         return spi;
     }
+      #endif // NRF54L_SERIES
 
     /**
     * Write to the SPI slave and return the response
@@ -583,8 +597,13 @@ namespace pins {
     //% blockGap=8
     //% weight=53
     int spiWrite(int value) {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return 0;
+      #else
         auto p = allocSPI();
         return p->write(value);
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -594,6 +613,8 @@ namespace pins {
     */
     //% help=pins/spi-transfer argsNullable
     void spiTransfer(Buffer command, Buffer response) {
+      // TODO
+      #ifndef NRF54L_SERIES
         if (!command && !response)
             target_panic(PANIC_INVALID_ARGUMENT);
         if (command && response && command->length != response->length)
@@ -609,6 +630,7 @@ namespace pins {
             if (response) response->data[i] = v;
         }
 #endif
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -622,8 +644,11 @@ namespace pins {
     //% blockGap=8
     //% weight=55
     void spiFrequency(int frequency) {
+      // TODO
+      #ifndef NRF54L_SERIES
         auto p = allocSPI();
         p->frequency(frequency);
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -638,8 +663,11 @@ namespace pins {
     //% blockGap=8
     //% weight=54
     void spiFormat(int bits, int mode) {
+      // TODO
+      #ifndef NRF54L_SERIES
         auto p = allocSPI();
         p->format(bits, mode);
+      #endif // NRF54L_SERIES
     }
 
 #if MICROBIT_CODAL
@@ -662,11 +690,14 @@ namespace pins {
     //% blockGap=8
     //% weight=51
     void spiPins(int mosi, int miso, int sck) {
+      // TODO
+      #ifndef NRF54L_SERIES
         if (NULL != spi) {
             delete spi;
             spi = NULL;
         }
         spi = new SPI(PIN_ARG(mosi), PIN_ARG(miso), PIN_ARG(sck));
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -688,6 +719,8 @@ namespace pins {
     //% weight=1
     //% blockGap=8
     void setAudioPin(int name) {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
         uBit.audio.setPin(*getPin((int)name));
         uBit.audio.setPinEnabled(!edgeConnectorSoundDisabled);
@@ -695,6 +728,7 @@ namespace pins {
         // v1 behavior
         pins::analogSetPitchPin(name);
 #endif
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -707,8 +741,11 @@ namespace pins {
     //% weight=0 help=pins/set-audio-pin-enabled
     void setAudioPinEnabled(bool enabled) {
         edgeConnectorSoundDisabled = !enabled;
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
         uBit.audio.setPinEnabled(enabled);
 #endif
+      #endif // NRF54L_SERIES
     }
 }

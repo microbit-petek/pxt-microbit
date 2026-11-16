@@ -18,7 +18,10 @@ namespace basic {
     //% block="show leds" icon="\uf00a"
     //% parts="ledmatrix"
     void showLeds(ImageLiteral_ leds, int interval = 400) {
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.display.print(MicroBitImage(imageBytes(leds)), 0, 0, 0, interval);
+      #endif
     }
 
     /**
@@ -38,6 +41,8 @@ namespace basic {
       if (interval <= 0)
         interval = 1;
       int l = text ? text->getUTF8Size() : 0;
+      // TODO
+      #ifndef NRF54L_SERIES
       if (l == 0) {
         uBit.display.clear();
         fiber_sleep(interval * 5);
@@ -46,6 +51,7 @@ namespace basic {
       } else {
         uBit.display.printChar(text->getUTF8Data()[0], interval * 5);
       }
+      #endif
     }
 
     /**
@@ -55,7 +61,10 @@ namespace basic {
     //% blockId=device_clear_display block="clear screen"
     //% parts="ledmatrix"
     void clearScreen() {
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.display.image.clear();
+      #endif
     }
 
     /**
@@ -66,7 +75,10 @@ namespace basic {
     //% help=basic/show-animation imageLiteral=1 async
     //% parts="ledmatrix"
     void showAnimation(ImageLiteral_ leds, int interval = 400) {
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.display.animate(MicroBitImage(imageBytes(leds)), interval, 5, 0, 0);
+      #endif
     }
 
     /**
@@ -77,7 +89,10 @@ namespace basic {
     //% parts="ledmatrix"
     void plotLeds(ImageLiteral_ leds) {
       MicroBitImage i(imageBytes(leds));
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.display.print(i, 0, 0, 0, 0);
+      #endif
     }
 
     /**

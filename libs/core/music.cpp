@@ -19,11 +19,14 @@ namespace music {
 //% group="Volume"
 //% blockGap=8
 void setVolume(int volume) {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
     uBit.audio.setVolume(max(0, min(255, volume)));
 #else
     pins::analogSetPitchVolume(volume);
 #endif
+      #endif // NRF54L_SERIES
 }
 
 /**
@@ -35,11 +38,16 @@ void setVolume(int volume) {
 //% group="Volume"
 //% blockGap=8
 int volume() {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return 0;
+      #else
 #if MICROBIT_CODAL
     return uBit.audio.getVolume();
 #else
     return pins::analogPitchVolume();
 #endif
+      #endif // NRF54L_SERIES
 }
 
 /**
@@ -55,6 +63,8 @@ int volume() {
 //% enabled.shadow=toggleOnOff
 //% weight=0
 void setBuiltInSpeakerEnabled(bool enabled) {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
     uBit.audio.setSpeakerEnabled(enabled);
 #else
@@ -63,6 +73,7 @@ void setBuiltInSpeakerEnabled(bool enabled) {
         target_panic(PANIC_VARIANT_NOT_SUPPORTED);
     }
 #endif
+      #endif // NRF54L_SERIES
 }
 
 /**
@@ -73,6 +84,10 @@ void setBuiltInSpeakerEnabled(bool enabled) {
 //% help=music/is-sound-playing
 //% weight=0
 bool isSoundPlaying() {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return false;
+      #else
 #if MICROBIT_CODAL
     if (uBit.audio.mixer.getSilenceStartTime() == 0) {
         return false;
@@ -83,6 +98,7 @@ bool isSoundPlaying() {
 #else
     target_panic(PANIC_VARIANT_NOT_SUPPORTED);
 #endif
+      #endif // NRF54L_SERIES
 }
 
 /**
@@ -95,12 +111,15 @@ bool isSoundPlaying() {
 //% level.defl=0
 //% weight=1
 void setSilenceLevel(int level) {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
     uBit.audio.mixer.setSilenceLevel(level);
 #else
     // this is an optimization
     // ignore in V1
 #endif
+      #endif // NRF54L_SERIES
 }
 
 }

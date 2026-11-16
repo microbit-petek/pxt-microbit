@@ -182,12 +182,15 @@ namespace input {
     //% parts="accelerometer"
     //% NAME.fieldEditor="gestures" NAME.fieldOptions.columns=4
     void onGesture(Gesture gesture, Action body) {
+      // TODO
+      #ifndef NRF54L_SERIES
         int gi = (int)gesture;
         if (gi == MICROBIT_ACCELEROMETER_EVT_3G && uBit.accelerometer.getRange() < 3)
             uBit.accelerometer.setRange(4);
         else if ((gi == MICROBIT_ACCELEROMETER_EVT_6G || gi == MICROBIT_ACCELEROMETER_EVT_8G) && uBit.accelerometer.getRange() < 6)
             uBit.accelerometer.setRange(8);
         registerWithDal(MICROBIT_ID_GESTURE, gi, body);
+      #endif // #ifndef NRF54L_SERIES
     }
 
     /**
@@ -200,9 +203,14 @@ namespace input {
     //% gesture.fieldEditor="gestures" gesture.fieldOptions.columns=4
     bool isGesture(Gesture gesture) {
         // turn on acceleration
+        // TODO
+        #ifdef NRF54L_SERIES
+        return false;
+        #else
         uBit.accelerometer.getX();
         int gi = (int)gesture;
         return uBit.accelerometer.getGesture() == gi;
+        #endif // #ifdef NRF54L_SERIES
     }
 
      /**
@@ -248,12 +256,15 @@ namespace input {
     //% icon="\uf192" blockGap=8
     //% parts="buttonpair"
     bool buttonIsPressed(Button button) {
+      // TODO
+      #ifndef NRF54L_SERIES
       if (button == Button::A)
         return uBit.buttonA.isPressed();
       else if (button == Button::B)
         return uBit.buttonB.isPressed();
       else if (button == Button::AB)
         return uBit.buttonAB.isPressed();
+      #endif // #ifndef NRF54L_SERIES
       return false;
     }
 
@@ -270,10 +281,15 @@ namespace input {
     }
 
     int getAccelerationStrength() {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return 0;
+      #else
         double x = uBit.accelerometer.getX();
         double y = uBit.accelerometer.getY();
         double z = uBit.accelerometer.getZ();
         return (int)sqrt(x*x+y*y+z*z);
+      #endif // #ifdef NRF54L_SERIES
     }
 
     /**
@@ -284,12 +300,15 @@ namespace input {
     //% blockId=device_acceleration block="acceleration (mg)|%NAME" blockGap=8
     //% parts="accelerometer"
     int acceleration(Dimension dimension) {
+      // TODO
+      #ifndef NRF54L_SERIES
       switch (dimension) {
       case Dimension::X: return uBit.accelerometer.getX();
       case Dimension::Y: return uBit.accelerometer.getY();
       case Dimension::Z: return uBit.accelerometer.getZ();
       case Dimension::Strength: return getAccelerationStrength();
       }
+      #endif // #ifndef NRF54L_SERIES
       return 0;
     }
 
@@ -300,7 +319,12 @@ namespace input {
     //% blockId=device_get_light_level block="light level" blockGap=8
     //% parts="ledmatrix"
     int lightLevel() {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return 0;
+      #else
         return uBit.display.readLightLevel();
+      #endif
     }
 
     /**
@@ -311,7 +335,12 @@ namespace input {
     //% blockId=device_heading block="compass heading (°)" blockGap=8
     //% parts="compass"
     int compassHeading() {
+      // TODO
+      #ifndef NRF54L_SERIES
         return uBit.compass.heading();
+      #else
+        return 0;
+      #endif
     }
 
 
@@ -323,7 +352,12 @@ namespace input {
     //% blockId=device_temperature block="temperature (°C)" blockGap=8
     //% parts="thermometer"
     int temperature() {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return 0;
+      #else
         return uBit.thermometer.getTemperature();
+      #endif
     }
 
     /**
@@ -334,10 +368,13 @@ namespace input {
     //% blockId=device_get_rotation block="rotation (°)|%NAME" blockGap=8
     //% parts="accelerometer" advanced=true
     int rotation(Rotation kind) {
+      // TODO
+      #ifndef NRF54L_SERIES
       switch (kind) {
       case Rotation::Pitch: return uBit.accelerometer.getPitch();
       case Rotation::Roll: return uBit.accelerometer.getRoll();
       }
+      #endif
       return 0;
     }
 
@@ -355,12 +392,15 @@ namespace input {
             uBit.compass.calibrate();
         */
         double d = 0;        
+        // TODO
+        #ifndef NRF54L_SERIES
         switch (dimension) {
             case Dimension::X: d = uBit.compass.getX(); break;
             case Dimension::Y: d = uBit.compass.getY(); break;
             case Dimension::Z: d = uBit.compass.getZ(); break;
             case Dimension::Strength: d = uBit.compass.getFieldStrength() ; break;
         }
+        #endif // #ifndef NRF54L_SERIES
         return fromDouble(d / 1000.0);
     }
 
@@ -371,7 +411,10 @@ namespace input {
     //% blockId="input_compass_calibrate" block="calibrate compass"
     //% weight=55
     void calibrateCompass() {
+      // TODO
+      #ifndef NRF54L_SERIES
         uBit.compass.calibrate();
+      #endif
     }
 
     /**
@@ -384,6 +427,9 @@ namespace input {
     //% parts="accelerometer"
     //% advanced=true
     void setAccelerometerRange(AcceleratorRange range) {
+      // TODO
+      #ifndef NRF54L_SERIES
         uBit.accelerometer.setRange((int)range);
+      #endif
     }
 }

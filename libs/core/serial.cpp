@@ -61,7 +61,12 @@ namespace serial {
     //% delimiter.label="delimiter"
     //% weight=19
     String readUntil(String delimiter) {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return mkString("", 0);
+      #else
       return PSTR(uBit.serial.readUntil(MSTR(delimiter)));
+      #endif
     }
 
     /**
@@ -71,9 +76,14 @@ namespace serial {
     //% blockId=serial_read_buffer block="serial|read string"
     //% weight=18
     String readString() {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return mkString("", 0);
+      #else
       int n = uBit.serial.getRxBufferSize();
       if (n == 0) return mkString("", 0);
       return PSTR(uBit.serial.read(n, MicroBitSerialMode::ASYNC));
+      #endif
     }
 
     /**
@@ -84,10 +94,13 @@ namespace serial {
     //% weight=18 blockId=serial_on_data_received block="serial|on data received %delimiters=serial_delimiter_conv"
     //% delimiters.label="delimiter"
     void onDataReceived(String delimiters, Action body) {
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.serial.eventOn(MSTR(delimiters));
       registerWithDal(MICROBIT_ID_SERIAL, MICROBIT_SERIAL_EVT_DELIM_MATCH, body);
       // lazy initialization of serial buffers
       uBit.serial.read(MicroBitSerialMode::ASYNC);
+      #endif
     }
 
     /**
@@ -101,7 +114,10 @@ namespace serial {
     void writeString(String text) {
       if (!text) return;
 
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.serial.send(MSTR(text));
+      #endif
     }
 
     /**
@@ -113,7 +129,10 @@ namespace serial {
     void writeBuffer(Buffer buffer) {
       if (!buffer) return;
 
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.serial.send(buffer->data, buffer->length);
+      #endif
     }
 
     /**
@@ -125,6 +144,8 @@ namespace serial {
     //% length.label="value"
     //% help=serial/read-buffer advanced=true weight=5
     Buffer readBuffer(int length) {
+      // TODO
+      #ifndef NRF54L_SERIES
       auto mode = SYNC_SLEEP;
       if (length <= 0) {
         length = uBit.serial.getRxBufferSize();
@@ -141,6 +162,9 @@ namespace serial {
       unregisterGCObj(buf);
 
       return res;
+      #else
+      return mkBuffer(NULL, 0);
+      #endif
     }
 
     bool tryResolvePin(SerialPin p, PinName& name) {
@@ -175,6 +199,8 @@ namespace serial {
     //% rx.fieldOptions.tooltips="false"
     //% blockGap=8
     void redirect(SerialPin tx, SerialPin rx, BaudRate rate) {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
       if (getPin(tx) && getPin(rx)) {
         uBit.serial.redirect(*getPin(tx), *getPin(rx));
@@ -188,10 +214,13 @@ namespace serial {
         uBit.serial.redirect(txn, rxn);
       uBit.serial.baud((int)rate);
 #endif
+      #endif // NRF54L_SERIES
     }
 
     //%
     int redirectWithStatus(SerialPin tx, SerialPin rx) {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
       if (getPin(tx) && getPin(rx)) {
         is_redirected = 1;
@@ -203,6 +232,7 @@ namespace serial {
       if (tryResolvePin(tx, txn) && tryResolvePin(rx, rxn))
         return uBit.serial.redirect(txn, rxn);
 #endif
+      #endif // NRF54L_SERIES
       return MICROBIT_INVALID_PARAMETER;
     }
 
@@ -215,11 +245,14 @@ namespace serial {
     //% help=serial/set-baud-rate
     //% group="Configuration" advanced=true
     void setBaudRate(BaudRate rate) {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
       uBit.serial.setBaud(rate);
 #else
       uBit.serial.baud((int)rate);
 #endif
+      #endif // NRF54L_SERIES
     }
 
 
@@ -229,6 +262,8 @@ namespace serial {
     //% weight=9 help=serial/redirect-to-usb
     //% blockId=serial_redirect_to_usb block="serial|redirect to USB"
     void redirectToUSB() {
+      // TODO
+      #ifndef NRF54L_SERIES
 #if MICROBIT_CODAL
       is_redirected = false;
       uBit.serial.redirect(uBit.io.usbTx, uBit.io.usbRx);
@@ -237,6 +272,7 @@ namespace serial {
       uBit.serial.redirect(USBTX, USBRX);
       uBit.serial.baud(115200);
 #endif
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -248,7 +284,10 @@ namespace serial {
     //% size.label="value"
     //% advanced=true
     void setRxBufferSize(uint8_t size) {
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.serial.setRxBufferSize(size);
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -260,7 +299,10 @@ namespace serial {
     //% size.label="value"
     //% advanced=true
     void setTxBufferSize(uint8_t size) {
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.serial.setTxBufferSize(size);
+      #endif // NRF54L_SERIES
     }
 
     /** Send DMESG debug buffer over serial. */
@@ -273,8 +315,11 @@ namespace serial {
 namespace pxt {
 
 static void sendString(const char *c, int len) {
+      // TODO
+      #ifndef NRF54L_SERIES
   while (len--)
     uBit.serial.putc(*c++);
+      #endif // NRF54L_SERIES
 }
 
 void dumpDmesg() {

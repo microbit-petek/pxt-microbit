@@ -25,7 +25,10 @@ namespace led {
     //% x.min=0 x.max=4 y.min=0 y.max=4
     //% x.fieldOptions.precision=1 y.fieldOptions.precision=1
     void plot(int x, int y) {
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.display.image.setPixelValue(x, y, 0xff);
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -44,9 +47,12 @@ namespace led {
     void plotBrightness(int x, int y, int brightness) {
         brightness = max(0, min(0xff, brightness));
         // enable greyscale as needed
+      // TODO
+      #ifndef NRF54L_SERIES
         if (brightness != 0 && brightness != 0xff && uBit.display.getDisplayMode() != DISPLAY_MODE_GREYSCALE)
             uBit.display.setDisplayMode(DISPLAY_MODE_GREYSCALE);
         uBit.display.image.setPixelValue(x, y, brightness);
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -61,7 +67,10 @@ namespace led {
     //% x.min=0 x.max=4 y.min=0 y.max=4
     //% x.fieldOptions.precision=1 y.fieldOptions.precision=1
     void unplot(int x, int y) {
+      // TODO
+      #ifndef NRF54L_SERIES
       uBit.display.image.setPixelValue(x, y, 0);
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -77,7 +86,12 @@ namespace led {
     //% x.fieldOptions.precision=1 y.fieldOptions.precision=1
     //% advanced=true
     int pointBrightness(int x, int y) {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return 0;
+      #else
       return uBit.display.image.getPixelValue(x, y);
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -88,7 +102,12 @@ namespace led {
     //% parts="ledmatrix"
     //% advanced=true
     int brightness() {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return 0;
+      #else
       return uBit.display.getBrightness();
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -102,7 +121,10 @@ namespace led {
     //% advanced=true
     //% value.min=0 value.max=255
     void setBrightness(int value) {
+      // TODO
+      #ifndef NRF54L_SERIES
        uBit.display.setBrightness(value);
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -113,7 +135,10 @@ namespace led {
     //% parts="ledmatrix"
     //% advanced=true
     void stopAnimation() {
+      // TODO
+      #ifndef NRF54L_SERIES
        uBit.display.stopAnimation();
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -124,7 +149,10 @@ namespace led {
     //% parts="ledmatrix" advanced=true weight=1
     //% blockId="led_set_display_mode" block="set display mode $mode"
     void setDisplayMode(DisplayMode_ mode) {
+      // TODO
+      #ifndef NRF54L_SERIES
         uBit.display.setDisplayMode((DisplayMode)mode);
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -132,7 +160,12 @@ namespace led {
     */
     //% weight=1 parts="ledmatrix" advanced=true
     DisplayMode_ displayMode() {
+      // TODO
+      #ifdef NRF54L_SERIES
+      return (DisplayMode_)0;
+      #else
         return (DisplayMode_)uBit.display.getDisplayMode();
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -142,8 +175,11 @@ namespace led {
     //% on.label="value"
     //% advanced=true parts="ledmatrix"
     void enable(bool on) {
+      // TODO
+      #ifndef NRF54L_SERIES
         if (on) uBit.display.enable();
         else uBit.display.disable();
+      #endif // NRF54L_SERIES
     }
 
     /**
@@ -152,7 +188,12 @@ namespace led {
     //% help=led/screenshot
     //% parts="ledmatrix"
     Image screenshot() {
+      // TODO
+      #ifdef NRF54L_SERIES
+        auto d = MicroBitImage(5, 5).leakData();
+      #else
         auto d = uBit.display.screenShot().leakData();
+      #endif // NRF54L_SERIES
         auto r = NEW_GC(RefMImage, d);
         d->decr();
         return r;
