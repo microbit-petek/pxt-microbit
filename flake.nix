@@ -20,7 +20,14 @@
         nixpkgs.lib.genAttrs supportedSystems (
           system:
           f {
-            pkgs = import nixpkgs { inherit system; };
+            pkgs = import nixpkgs {
+              inherit system;
+              config = {
+                allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [ "segger-jlink" ];
+                segger-jlink.acceptLicense = true;
+                allowInsecurePredicate = pkg: nixpkgs.lib.getName pkg == "segger-jlink-qt4";
+              };
+            };
           }
         );
     in
@@ -38,6 +45,9 @@
 
               # Python packages
               pkgs.python313Packages.distutils
+
+              # Dev board tooling
+              pkgs.segger-jlink
             ];
 
             shellHook = /* bash */ ''
